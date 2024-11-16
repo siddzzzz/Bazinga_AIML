@@ -2,7 +2,7 @@ import pickle
 from PyPDF2 import PdfReader
 import re
 
-def Job(file_path):
+def Job(txt):
     clf = pickle.load(open('Models/clf.pkl', 'rb'))
     tfidf = pickle.load(open('Models/tfidf.pkl', 'rb'))
     def remove_stopwords(text):
@@ -59,10 +59,7 @@ def Job(file_path):
         return cleanText
     
 
-    reader = PdfReader(file_path)
-    resume = ""
-    for page in reader.pages:
-        resume += page.extract_text()
+    resume = txt
     
     category_mapping = {
         15: "Java Developer",
