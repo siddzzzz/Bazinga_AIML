@@ -7,13 +7,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 #https://www.naukri.com/ml-engineer-jobs?k=ml%20engineer&nignbevent_src=jobsearchDeskGNB
 def find_listings(category):
     query = category.split()
     query1 = "-".join(query)
     query2 = "%20".join(query)
     url = f"https://www.naukri.com/{query1}-jobs?k={query2}&nignbevent_src=jobsearchDeskGNB"
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
     driver.get(url)
     elem = WebDriverWait(driver, 10).until(

@@ -6,3 +6,4 @@ google-generativeai
 PyPDF2
 scikit-learn
 requests
+webdriver_manager
