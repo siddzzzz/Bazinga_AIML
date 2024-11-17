@@ -1,3 +1,5 @@
+import os
+import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -7,10 +9,44 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
-from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-#https://www.naukri.com/ml-engineer-jobs?k=ml%20engineer&nignbevent_src=jobsearchDeskGNB
+
+from sys import platform
+# Function to check if Chrome is in PATH
+def is_chrome_installed():
+    try:
+        # Check if Chrome is installed
+        result = subprocess.run(["google-chrome", "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return result.returncode == 0
+    except FileNotFoundError:
+        return False
+
+def install_chrome():
+    if platform == "win32":  # Windows
+        print("Installing Google Chrome on Windows...")
+        chrome_installer_url = "https://dl.google.com/chrome/install/375.126/chrome_installer.exe"
+        installer_path = "chrome_installer.exe"
+        # Download Chrome installer
+        subprocess.run(["curl", "-o", installer_path, chrome_installer_url], check=True)
+        # Install Chrome silently
+        subprocess.run([installer_path, "/silent", "/install"], check=True)
+        os.remove(installer_path)  # Clean up installer after installation
+    elif platform in ["linux", "linux2", "darwin"]:  # Linux or macOS
+        print("Installing Google Chrome on Linux/macOS...")
+        subprocess.run(["bash", "install_chrome.sh"], check=True)
+    else:
+        raise OSError("Unsupported operating system for automatic installation")
+
+# Ensure Chrome is installed
+if not is_chrome_installed():
+    install_chrome()
+
+# Ensure Chrome is installed
+if not is_chrome_installed():
+    print("Google Chrome not found. Installing...")
+    subprocess.run(["bash", "install_chrome.sh"], check=True)
+
 def find_listings(category):
     query = category.split()
     query1 = "-".join(query)
@@ -85,8 +121,6 @@ def find_listings(category):
     df = pd.DataFrame(data=job_details)
     driver.close()
     return df
-
-
 
 def detailed_jd(url):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
