@@ -1,6 +1,5 @@
 import streamlit as st
 from utils.resume import to_string
-
 st.title("Upload Your Resume")
 
 # File uploader for PDF

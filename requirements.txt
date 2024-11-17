@@ -1,0 +1,7 @@
+selenium
+beautifulsoup4
+pandas
+streamlit
+google-generativeai
+PyPDF2
+scikit-learn
