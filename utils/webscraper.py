@@ -19,7 +19,7 @@ def find_listings(category):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
     driver.get(url)
-    elem = WebDriverWait(driver, 10).until(
+    elem = WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.CLASS_NAME, "srp-jobtuple-wrapper"))
     )
 
@@ -89,7 +89,7 @@ def find_listings(category):
 
 
 def detailed_jd(url):
-    driver = webdriver.Chrome()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
     driver.get(url)
     elem = WebDriverWait(driver, 10).until(

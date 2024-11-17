@@ -20,7 +20,7 @@ def fetch_job_postings(ideal_job):
     return ws.find_listings(ideal_job)
 
 # Fetch data (uses cache if data is already fetched)
-with st.spinner("Fetching job postings... This might take up to 10 seconds."):
+with st.spinner("Fetching job postings... This might take up to 20 seconds."):
     df = fetch_job_postings(ideal_job)
 
 # Display each job posting in a box
