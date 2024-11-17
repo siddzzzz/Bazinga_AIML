@@ -7,7 +7,7 @@ if 'job_details' not in st.session_state:
     st.stop()
 
 job_details = st.session_state['job_details']
-
+formatted_info = None
 details = ws.detailed_jd(job_details["Job Link"])
 for key,val in details.items():
     info = f"**{key}:** {val}"

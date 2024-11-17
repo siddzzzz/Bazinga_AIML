@@ -1,5 +1,3 @@
-import os
-import subprocess
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -9,22 +7,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
+from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-
-# Function to check if Chrome is in PATH
-def is_chrome_installed():
-    try:
-        result = subprocess.run(["google-chrome", "--version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return result.returncode == 0
-    except FileNotFoundError:
-        return False
-
-# Ensure Chrome is installed
-if not is_chrome_installed():
-    print("Google Chrome not found. Installing...")
-    subprocess.run(["bash", "install_chrome.sh"], check=True)
-
+#https://www.naukri.com/ml-engineer-jobs?k=ml%20engineer&nignbevent_src=jobsearchDeskGNB
 def find_listings(category):
     query = category.split()
     query1 = "-".join(query)
@@ -99,6 +85,8 @@ def find_listings(category):
     df = pd.DataFrame(data=job_details)
     driver.close()
     return df
+
+
 
 def detailed_jd(url):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
